@@ -20,7 +20,7 @@ const DataGeneratePage = () => {
        
         if(finalData.length===0){
             
-             toast.error("Firts Generate date")
+             toast.error("Firts Generate data")
         }else{
             const filename = prompt('Enter file name') || 'data.json'; // Prompt user for filename
             downloadJsonFile(filename);
