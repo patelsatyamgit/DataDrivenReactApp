@@ -12,6 +12,6 @@ export const Navbardata=[
     {
         id:3,
         Name:"GitHub",
-        url:"/"
+        url:"https://github.com/patelsatyamgit/DataDrivenReactApp"
     }
 ]
