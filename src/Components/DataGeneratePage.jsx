@@ -3,18 +3,24 @@ import { category } from '../utils/category';
 import DisplayData from './DisplayData';
 import DifferentsFields from './DifferentsFields';
 import toast from 'react-hot-toast';
+import {getApiData} from "../Services/apicall"
+import { useDispatch, useSelector } from 'react-redux';
 
-const DataGeneratePage = () => {
+
+const DataGeneratePage = (flag) => {
     const [tab,setTab]=useState(0);
     const [unSelectedfields,setUnSelectedFields]=useState([]);
     const [limit,setLimit]=useState(10);
     const [finalData,setFinalData]=useState([]);
     const [edit,setEdit]=useState(false);
     const [loading,setLoading]=useState(false);
+    const dispatch=useDispatch();
     useEffect(()=>{
             setUnSelectedFields([]);
     },[tab])
 
+ 
+    const {data}=useSelector((state)=>state.data);
 
     const handleDownload = () => {
        
@@ -47,39 +53,23 @@ const DataGeneratePage = () => {
           URL.revokeObjectURL(url);
         }
       };
-    const getData= async()=>{
-        setLoading(true);
-        var apiData
-        let oop=category[tab-1].apicall;
-        let d= await fetch(`https://dummyjson.com/${category[tab-1].apicall}?limit=${limit}`)
-.then(res => res.json())
-.then(json => 
-    {
-        if(category[tab-1].apicall=="users"){
-           apiData=[...json.users]
-        }
-        else if(category[tab-1].apicall=="carts"){
-            apiData=json.carts;
-        }
-        else if(category[tab-1].apicall=="products"){
-            apiData=json.products;
-        }
-        else if(category[tab-1].apicall==="todos"){
-            apiData=json.todos;
-        }
-    })
 
-        const filteredArray = apiData.map(obj => {
-                        const filteredObject = Object.fromEntries(
-                          Object.entries(obj).filter(([key]) => !unSelectedfields.includes(key))
-                        );
-                        return filteredObject;
-                      });
-                      
-            setFinalData(JSON.stringify(filteredArray,null,4));
-            setLoading(false);
-    }
-  
+      const getData=()=>{
+        let apiData = getApiData(category,tab,limit,setLoading,dispatch);
+      }
+      useEffect(()=>{
+        const filteredArray = data.map(obj => {
+          const filteredObject = Object.fromEntries(
+            Object.entries(obj).filter(([key]) => !unSelectedfields.includes(key))
+          );
+          return filteredObject;
+        });
+        
+     filteredArray.length > 0 && setFinalData(JSON.stringify(filteredArray,null,4));
+setLoading(false);
+      },[data]);
+      
+
   return (
     <div className='w-[95%] md:w-11/12 mx-auto py-5'>
         <div className='bg-gray-200 px-3 py-5 rounded-xl flex flex-col gap-4'>
@@ -87,7 +77,7 @@ const DataGeneratePage = () => {
             <div className=' bg-gray-400 flex rounded-lg w-fit gap-2 md:gap-7 px-6 py-2 flex-wrap'>
                 {
                     category.map((item,index)=>{
-                        return <button className={`rounded-lg border-[1px] border-gray-500 px-2 py-1 ${item.id==tab ?"bg-gray-900 text-white":"text-gray-900"}`} onClick={()=>setTab(item.id)}>
+                        return <button key={index} className={`rounded-lg border-[1px] border-gray-500 px-2 py-1 ${item.id==tab ?"bg-gray-900 text-white":"text-gray-900"}`} onClick={()=>setTab(item.id)}>
                             {item.name}
                         </button>
                     })
@@ -134,7 +124,9 @@ const DataGeneratePage = () => {
 
         </div>
         <div>
-            <DisplayData edit={edit} setEdit={setEdit} finalData={finalData} setFinalData={setFinalData} handleDownload={handleDownload} loading={loading}/>
+          {
+                  flag && <DisplayData edit={edit} setEdit={setEdit} finalData={finalData} setFinalData={setFinalData} handleDownload={handleDownload} loading={loading}/>
+          }  
         </div>
         
     </div>

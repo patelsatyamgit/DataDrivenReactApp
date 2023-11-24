@@ -47,7 +47,7 @@ const Home = () => {
          </section>
          {/* section two  */}
          <section >
-            <DataGeneratePage/>
+            <DataGeneratePage flag={true}/>
          </section>
          {/* section three */}
          <section>

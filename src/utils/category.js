@@ -271,3 +271,18 @@ export const category=[
         ]
     }
 ]
+
+export const category1=[
+    {
+        id:1,
+        name:"Products",
+        apicall:"products",
+        count:100,
+    },
+    {
+        id:3,
+        name:"Users",
+        apicall:"users",
+        count:100,
+    }
+]
