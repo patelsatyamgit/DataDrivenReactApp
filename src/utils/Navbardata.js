@@ -16,7 +16,12 @@ export const Navbardata=[
     },
     {
         id:4,
-        Name:"Demo",
+        Name:"Json Data",
         url:"/demo"
+    },
+    {
+        id:5,
+        Name:"Products",
+        url:"/products"
     }
 ]
