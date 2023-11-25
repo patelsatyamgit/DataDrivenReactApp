@@ -73,7 +73,7 @@ const Cart = () => {
             </div>
             <div className="w-full  flex flex-col gap-3 font-bold text-xl">
                 <p className="text-gray-700 font-bold">Total Amount : {totleAmount} <span className="line-through">{total}</span></p>
-                <button className="bg-green-900 text-white py-2 px-24 rounded-md " onClick={()=>navigate("/products")}>CheckoutNow</button>
+                <button className="bg-green-900 text-white py-2 px-24 rounded-md " onClick={()=>navigate("/")}>CheckoutNow</button>
             </div>
           </div>
           

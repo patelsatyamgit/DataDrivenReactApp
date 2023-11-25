@@ -1,12 +1,17 @@
 import ReactStarts from "react-rating-stars-component";
+import { useNavigate } from "react-router-dom";
 // import "react-toastify/dist/ReactToastify.css"
 
 const Product = (props) => {
   
   const product=props.product;
+  const navigate=useNavigate();
 
   return (
-         <div>
+         <div className="cursor-pointer" onClick={()=>{
+             var ulrr=`/product/${product.id}`
+             navigate(ulrr);
+         }}>
           
              <div className="group hover:scale-110 transition duration-300 ease-in flex flex-col items-center justify-between shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:shadow-[0px_0px_95px_53px_#00000024] gap-3 py-4 px-2 mt-10 ml-5  rounded-xl">
             <div>
