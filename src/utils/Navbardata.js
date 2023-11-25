@@ -16,7 +16,7 @@ export const Navbardata=[
     },
     {
         id:4,
-        Name:"Json Data",
+        Name:"Json",
         url:"/demo"
     },
     {

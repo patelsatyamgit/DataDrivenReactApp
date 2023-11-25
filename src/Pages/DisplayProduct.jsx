@@ -5,15 +5,18 @@ import Spinner from '../Components/Spinner';
 
 import Product from '../Components/Product';
 import {productCategory} from '../utils/productCategory';
+import "../App.css"
 
 const DisplayProduct = () => {
  
     const [loading,setLoading]=useState(false);
+    const [loading1,setLoading1]=useState(false);
     const [finalData,setfinaldata]=useState([]);
     const [category,setCategory]=useState("smartphones");
     const [filteredData,setFilteredData]=useState([]);
     const getData=async()=>{
         setLoading(true);
+        setLoading1(true);
         await fetch(`https://dummyjson.com/products?limit=100`)
         .then(res => res.json())
         .then((json) => {
@@ -25,14 +28,15 @@ const DisplayProduct = () => {
       
         
         setLoading(false);
+        setLoading1(false)
 
        
       }
       const filterData=()=>{
-        setLoading(true);
+        setLoading1(true);
         const data=finalData.filter((item)=>item.category == category);
         setFilteredData(data);
-        setLoading(false);
+        setLoading1(false);
       }
 
       useEffect(()=>{
@@ -70,7 +74,7 @@ const DisplayProduct = () => {
         <div>
         <div className="w-3/4 min-w-[350px] mx-auto grid grid-cols-1 min-h-screen relative  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
             {
-                loading? <Spinner/>:(
+                loading1? <Spinner/>:(
 
                   filteredData.length < 0 ? (
                     <div>

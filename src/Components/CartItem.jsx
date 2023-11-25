@@ -7,13 +7,13 @@ const CartItem = (props) => {
   const dispatch=useDispatch();
   return <div>
 
-    <div className='w-full flex flex-col lg:flex-row items-center gap-2'>
+    <div className='w-[90%] mx-auto flex flex-col lg:flex-row items-center gap-2'>
       {/* left side  */}
-      <div className='md:w-[30%]'>
-            <img src={item.thumbnail} className='h-[180px] w-[200px] rounded-md' alt="" />
+      <div className='md:w-[30%] w-full'>
+            <img src={item.thumbnail} className='h-[180px] w-[200px] rounded-md mx-auto' alt="" />
       </div>
       {/* right side */}
-      <div className='md:w-[70%] flex flex-col gap-4'>
+      <div className='md:w-[70%] w-full flex flex-col gap-4'>
         <h1 className='font-semibold text-xl'>{item.title}</h1>
        
         <div className='flex justify-between'>
