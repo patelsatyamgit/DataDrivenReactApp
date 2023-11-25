@@ -5,10 +5,17 @@ import ReactStarts from "react-rating-stars-component";
 import { useParams } from 'react-router-dom'
 import Spinner from '../Components/Spinner';
 import {Swiper,SwiperSlide} from "swiper/react"
+import { addToCart, removeFromCart } from "../redux/Slices/cartSlice";
+import { CiHeart } from "react-icons/ci"
+import { useDispatch, useSelector } from 'react-redux';
+import { FaHeart } from "react-icons/fa"
+
 const ProductDetails = () => {
   const {id}=useParams();
   const [product,setProduct]=useState(null);
   const [loading,setLoading]=useState(false);
+  const [flag,setFlag]=useState(false);
+  const {cart}=useSelector((state)=>state.Cart);
   const getData=async()=>{
     setLoading(true);
     await fetch(`https://dummyjson.com/products/${id}`)
@@ -19,6 +26,27 @@ const ProductDetails = () => {
   useEffect(()=>{
     getData();
   },[])
+  const dispatch=useDispatch();
+  const addToCartHandler=()=>{
+         if(!flag){
+             dispatch(addToCart(product));
+             setFlag(true)
+         }
+         else{
+             dispatch(removeFromCart(product.id));
+             setFlag(false);
+         }
+  }
+  useEffect(()=>{
+             cart.length > 0 && cart.forEach((item) => {
+                   if(item?.id===product?.id){
+                    setFlag(true);
+                    return;
+                   }
+             });
+            console.log("okk",cart);
+                 
+  },[cart,product])
   return (
     <div className='w-full'>
    {
@@ -31,7 +59,13 @@ const ProductDetails = () => {
                  <img src={product?.thumbnail} alt="" className='w-[400px] h-[300px] rounded-sm'  />
            </div>
            <div className=''>
+                   <div className='flex gap-5'>
                    <h1 className='text-3xl font-bold text-red-600'>{product?.title}</h1>
+                   <button className={`text-2xl text-red-400 `} onClick={addToCartHandler}>
+                   {!flag && <CiHeart/>}
+                   {flag && <FaHeart/> }
+              </button>
+                   </div>
                    <div className='text-gray-400'>{product?.description}</div>
 
                    <div className="flex gap-7 items-center text-gray-500">

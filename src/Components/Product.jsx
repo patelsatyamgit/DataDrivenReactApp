@@ -2,10 +2,16 @@ import ReactStarts from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
 // import "react-toastify/dist/ReactToastify.css"
 
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
 const Product = (props) => {
   
   const product=props.product;
   const navigate=useNavigate();
+  const {Cart}=useSelector((state)=>state.Cart);
+  const dispatch=useDispatch();
+  
 
   return (
          <div className="cursor-pointer" onClick={()=>{
@@ -14,7 +20,7 @@ const Product = (props) => {
          }}>
           
              <div className="group hover:scale-110 transition duration-300 ease-in flex flex-col items-center justify-between shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:shadow-[0px_0px_95px_53px_#00000024] gap-3 py-4 px-2 mt-10 ml-5  rounded-xl">
-            <div>
+            <div className="flex gap-6">
               <h1 className="font-semibold text-center text-lg">{ product.title?.substring(0,17)}...</h1>
             </div>
             <div>

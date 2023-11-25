@@ -2,6 +2,7 @@ import {AiFillDelete} from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 
 import { toast } from "react-hot-toast";
+import { removeFromCart } from '../redux/Slices/cartSlice';
 const CartItem = (props) => {
   const item=props.item;
   const dispatch=useDispatch();
@@ -18,7 +19,9 @@ const CartItem = (props) => {
        
         <div className='flex justify-between'>
          <p className='text-green-500 font-bold'>{item.price}</p>
-         <button className='text-red-700 bg-red-300 rounded-full w-8 h-8 flex items-center justify-center text-sm' onClick={()=>props.remove(item.id)} >
+         <button className='text-red-700 bg-red-300 rounded-full w-8 h-8 flex items-center justify-center text-sm' onClick={()=>{
+          props.remove(item.id);
+         }} >
                  <AiFillDelete/>
          </button>
           

@@ -4,7 +4,7 @@ import dataReducer from "../redux/Slices/dataSlice"
 import cartReducer from "../redux/Slices/cartSlice"
 const rootReducer=combineReducers({
     data:dataReducer,
-    Carat:cartReducer,
+    Cart:cartReducer,
    
 })
 export default rootReducer;

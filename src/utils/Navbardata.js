@@ -23,5 +23,10 @@ export const Navbardata=[
         id:5,
         Name:"Users",
         url:"/user"
+    },
+    {
+        id:6,
+        Name:"Cart",
+        url:"/cart"
     }
 ]
