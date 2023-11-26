@@ -5,7 +5,6 @@ import Advertize from '../Components/Advertize';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 const Home = () => {
-     const navigate=useNavigate();
      const [displayData,setDisplayData]=useState({});
 
      useEffect(()=>{

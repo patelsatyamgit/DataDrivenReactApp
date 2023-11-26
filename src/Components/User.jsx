@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const User = (props) => {
   
   const product=props.product;
-  const tab=props.tab;
+  // const tab=props.tab;
   const navigate=useNavigate();
   return <div>
     

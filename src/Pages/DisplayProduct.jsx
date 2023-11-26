@@ -21,7 +21,7 @@ const DisplayProduct = () => {
         .then(res => res.json())
         .then((json) => {
             setfinaldata(json.products);
-            const data=json?.products?.filter((item)=>item.category == category);
+            const data=json?.products?.filter((item)=>item.category === category);
             setFilteredData(data);
         });
 
@@ -34,7 +34,7 @@ const DisplayProduct = () => {
       }
       const filterData=()=>{
         setLoading1(true);
-        const data=finalData.filter((item)=>item.category == category);
+        const data=finalData.filter((item)=>item.category === category);
         setFilteredData(data);
         setLoading1(false);
       }

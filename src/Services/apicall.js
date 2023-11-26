@@ -5,17 +5,17 @@ export const getApiData=async(category,tab,limit,setLoading,dispatch)=>{
     // console.log("imafsdfsfsd")
         var apiData
       if(limit){
-        let d= await fetch(`https://dummyjson.com/${category[tab-1].apicall}?limit=${limit}`)
+       await fetch(`https://dummyjson.com/${category[tab-1].apicall}?limit=${limit}`)
         .then(res => res.json())
         .then(json => 
             {
-                if(category[tab-1].apicall=="users"){
+                if(category[tab-1].apicall==="users"){
                    apiData=[...json.users]
                 }
-                else if(category[tab-1].apicall=="carts"){
+                else if(category[tab-1].apicall==="carts"){
                     apiData=json.carts;
                 }
-                else if(category[tab-1].apicall=="products"){
+                else if(category[tab-1].apicall==="products"){
                     apiData=json.products;
                 }
                 else if(category[tab-1].apicall==="todos"){
@@ -24,17 +24,17 @@ export const getApiData=async(category,tab,limit,setLoading,dispatch)=>{
             })
       }
       else{
-        let d= await fetch(`https://dummyjson.com/${category[tab-1].apicall}`)
+        await fetch(`https://dummyjson.com/${category[tab-1].apicall}`)
         .then(res => res.json())
         .then(json => 
             {
-                if(category[tab-1].apicall=="users"){
+                if(category[tab-1].apicall==="users"){
                    apiData=[...json.users]
                 }
-                else if(category[tab-1].apicall=="carts"){
+                else if(category[tab-1].apicall==="carts"){
                     apiData=json.carts;
                 }
-                else if(category[tab-1].apicall=="products"){
+                else if(category[tab-1].apicall==="products"){
                     apiData=json.products;
                 }
                 else if(category[tab-1].apicall==="todos"){

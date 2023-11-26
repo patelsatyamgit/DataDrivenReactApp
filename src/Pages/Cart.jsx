@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import CartItem from "../Components/CartItem";
-import { NavLink, useNavigate, useParams } from "react-router-dom/dist";
+import { useNavigate, useParams } from "react-router-dom/dist";
 import Spinner from "../Components/Spinner";
 
 const Cart = () => {
@@ -17,7 +16,6 @@ const Cart = () => {
     await fetch(`https://dummyjson.com/carts?limit=150`)
     .then(res => res.json())
     .then((json) => {
-        var flag=true;
              const newdata=json.carts;
              for(var item of newdata)
              {

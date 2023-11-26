@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Spinner from '../Components/Spinner';
 import { IoLocation } from "react-icons/io5";
 import { BsCart4 } from "react-icons/bs";
-import { useDispatch, useSelector } from 'react-redux';
+
 // import { setCarat } from '../redux/Slices/cartSlice';
 const UserDetails = () => {
     const [userData,setUserData]=useState(null);
@@ -12,8 +12,6 @@ const UserDetails = () => {
     const [tab,setTab]=useState(1);
     const [todos,setTodos]=useState([]);
     const [Cart,setCart]=useState(null);
-    const {Carat}=useSelector((state)=>state.Carat)
-    const navigate=useNavigate();
     const getData=async()=>{
         setLoading(true);
         await fetch(`https://dummyjson.com/users/${id}`)
@@ -27,34 +25,25 @@ const UserDetails = () => {
         await fetch(`https://dummyjson.com/todos?limit=150`)
         .then(res => res.json())
         .then((json) => {
-                 const newdata=json.todos.filter((item)=>item.userId==id);
-                 console.log("todo",newdata);
+                 const newdata=json.todos.filter((item)=>item.userId===id);
+                //  console.log("todo",newdata);
                  setTodos(newdata);
         });
         setLoading(false);
       }
-      const dispatch=useDispatch();
       const getProduct=async()=>{
         setLoading(true);
         await fetch(`https://dummyjson.com/carts?limit=150`)
         .then(res => res.json())
         .then((json) => {
-            var flag=true;
                  const newdata=json.carts;
                  for(var item of newdata)
                  {
                     // console.log("fdfdsf",item)
                     if(item.userId==id){
                           setCart(item);
-                        //   dispatch(setCarat(item))
-                           flag=false;
-
                     }
                  }
-                 if(true){
-                    // dispatch(setCarat({}));
-                 }
-                 
         });
         setLoading(false);
       }
@@ -64,9 +53,6 @@ const UserDetails = () => {
         getTodo();
         getProduct();
       },[])
-     useEffect(()=>{
-        console.log("fd", Carat);
-     },[Cart])
   return (
     <div>
         {
@@ -119,7 +105,7 @@ const UserDetails = () => {
                      <div className='text-gray-600 text-3xl relative cursor-pointer'>
                         <BsCart4/>
                         <div className='absolute animate-bounce right-0 -top-3 bg-green-800 text-white w-5 h-5 rounded-full text-center justify-center flex items-center text-sm'>
-                            {Cart? Cart?.totalProducts:0}
+                            {Cart ? Cart?.totalProducts:0}
                         </div>
                     </div>
                      
@@ -130,7 +116,7 @@ const UserDetails = () => {
                         <div className='flex flex-col gap-2'>
                             {
                                 todos && todos.map((item,index)=>{
-                                    return <div className='md:w-[500px] bg-gray-200 py-1 rounded-sm px-2 flex justify-between w-full'>
+                                    return <div key={index} className='md:w-[500px] bg-gray-200 py-1 rounded-sm px-2 flex justify-between w-full'>
                                         <div className='w-[80%] '>{index+1}. {item.todo}</div>
                                         <div className={`${item.completed?"bg-green-500 text-white":"bg-gray-600 text-white "} rounded-md px-2 text-sm h-fit py-3`}>{item.completed ? "Completed":"Uncompleted"}</div>
                                     </div>

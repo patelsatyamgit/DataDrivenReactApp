@@ -180,7 +180,7 @@ export const category=[
                 id:14,
                 name:"height",
                 uni:"33"
-            },
+            }
             ,{
                 id:15,
                 name:"weight",

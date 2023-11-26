@@ -109,7 +109,7 @@ const ProductDetails = () => {
             {
               product?.images?.map((item,index)=>(
                           <SwiperSlide >
-                            <img src={item} alt="image" className='h-[200px]w-[300px]'/>
+                            <img src={item} alt='' className='h-[200px]w-[300px]'/>
                           </SwiperSlide>
               ))
             }

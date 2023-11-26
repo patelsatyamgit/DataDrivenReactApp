@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch} from 'react-redux';
+
 import Spinner from '../Components/Spinner';
 
 
@@ -9,7 +9,6 @@ const Demo = () => {
  
     const [loading,setLoading]=useState(false);
     const [finalData,setfinaldata]=useState([]);
-    var limit=3;
     const getData=async()=>{
         setLoading(true);
         await fetch(`https://dummyjson.com/users`)
