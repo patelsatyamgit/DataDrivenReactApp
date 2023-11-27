@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Spinner from '../Components/Spinner';
 import { IoLocation } from "react-icons/io5";
 import { BsCart4 } from "react-icons/bs";
+import { getProducts, getTodos, getUserByid } from '../Services/apicall';
 
 // import { setCarat } from '../redux/Slices/cartSlice';
 const UserDetails = () => {
@@ -14,37 +15,44 @@ const UserDetails = () => {
     const [Cart,setCart]=useState(null);
     const getData=async()=>{
         setLoading(true);
-        await fetch(`https://dummyjson.com/users/${id}`)
-        .then(res => res.json())
-        .then(json => setUserData(json));
+        try {
+            const user=await getUserByid(id);
+            setUserData(user);
+        } catch (error) {
+             console.log("There is some error");
+        }
+        
         setLoading(false);
       }
 
       const getTodo=async()=>{
         setLoading(true);
-        await fetch(`https://dummyjson.com/todos?limit=150`)
-        .then(res => res.json())
-        .then((json) => {
-                 const newdata=json.todos.filter((item)=>item.userId===id);
-                //  console.log("todo",newdata);
-                 setTodos(newdata);
-        });
+
+        try {
+            const todosData=await getTodos();
+            const newdata=todosData.filter((item)=>item.userId==id);
+             setTodos(newdata);
+            
+        } catch (error) {
+             console.log("There is some error");
+        }
         setLoading(false);
       }
       const getProduct=async()=>{
         setLoading(true);
-        await fetch(`https://dummyjson.com/carts?limit=150`)
-        .then(res => res.json())
-        .then((json) => {
-                 const newdata=json.carts;
-                 for(var item of newdata)
-                 {
-                    // console.log("fdfdsf",item)
-                    if(item.userId==id){
-                          setCart(item);
-                    }
-                 }
-        });
+
+        try {
+            const Cartsdata=await getProducts();
+            for(var item of Cartsdata)
+            {
+               if(item.userId==id){
+                     setCart(item);
+               }
+            }
+        } catch (error) {
+             console.log("There is some error");
+        }
+    
         setLoading(false);
       }
 

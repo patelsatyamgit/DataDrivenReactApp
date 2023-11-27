@@ -9,6 +9,7 @@ import { addToCart, removeFromCart } from "../redux/Slices/cartSlice";
 import { CiHeart } from "react-icons/ci"
 import { useDispatch, useSelector } from 'react-redux';
 import { FaHeart } from "react-icons/fa"
+import { getProductByid } from '../Services/apicall';
 
 const ProductDetails = () => {
   const {id}=useParams();
@@ -16,12 +17,18 @@ const ProductDetails = () => {
   const [loading,setLoading]=useState(false);
   const [flag,setFlag]=useState(false);
   const {cart}=useSelector((state)=>state.Cart);
+  const [countImages,setcountImages]=useState(0);
   const getData=async()=>{
     setLoading(true);
-    await fetch(`https://dummyjson.com/products/${id}`)
-    .then(res => res.json())
-    .then(json => setProduct(json));
+    try {
+      const data=await getProductByid(id);
+    setProduct(data)
     setLoading(false);
+    setcountImages(data.images.length);
+
+    } catch (error) {
+       console.log("There is some error");
+    }
   }
   useEffect(()=>{
     getData();
@@ -95,7 +102,7 @@ const ProductDetails = () => {
          <div className='mt-2'>
           <h1 className='text-xl font-bold text-gray-700 mb-2'>Different view</h1>
           
-          <Swiper loop={true}  spaceBetween={22} breakpoints={{
+          <Swiper  spaceBetween={22} breakpoints={{
              640: {
               width: 640,
               slidesPerView: 1,

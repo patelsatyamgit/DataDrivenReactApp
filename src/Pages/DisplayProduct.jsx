@@ -6,6 +6,7 @@ import Spinner from '../Components/Spinner';
 import Product from '../Components/Product';
 import {productCategory} from '../utils/productCategory';
 import "../App.css"
+import { getProduct } from '../Services/apicall';
 
 const DisplayProduct = () => {
  
@@ -17,14 +18,14 @@ const DisplayProduct = () => {
     const getData=async()=>{
         setLoading(true);
         setLoading1(true);
-        await fetch(`https://dummyjson.com/products?limit=100`)
-        .then(res => res.json())
-        .then((json) => {
-            setfinaldata(json.products);
-            const data=json?.products?.filter((item)=>item.category === category);
-            setFilteredData(data);
-        });
-
+        try {
+            const json=await getProduct();
+            setfinaldata(json);
+            const data=json?.filter((item)=>item.category === category);
+            setFilteredData(data); 
+        } catch (error) {
+             console.log("There is some error");
+        }
       
         
         setLoading(false);
@@ -48,7 +49,6 @@ const DisplayProduct = () => {
         // console.log(category);
       },[category])
       useEffect(()=>{
-              console.log("filter",filteredData)
       },[filteredData])
 
   return (

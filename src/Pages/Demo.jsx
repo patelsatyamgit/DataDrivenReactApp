@@ -4,6 +4,7 @@ import Spinner from '../Components/Spinner';
 
 
 import User from '../Components/User';
+import { getUsersData } from '../Services/apicall';
 
 const Demo = () => {
  
@@ -11,9 +12,13 @@ const Demo = () => {
     const [finalData,setfinaldata]=useState([]);
     const getData=async()=>{
         setLoading(true);
-        await fetch(`https://dummyjson.com/users`)
-        .then(res => res.json())
-        .then(json => setfinaldata(json.users));
+        try {
+            const data=await getUsersData();
+            setfinaldata(data);
+        } catch (error) {
+            console.log("error");
+        }
+     
         setLoading(false);
       }
 
@@ -32,13 +37,13 @@ const Demo = () => {
             {
                 loading? <Spinner/>:(
 
-                  finalData.length < 0 ? (
+                  finalData?.length < 0 ? (
                     <div>
                       No data found
                     </div>
                   ):
                   (
-                    finalData.map((product)=>{
+                    finalData?.map((product)=>{
 
                      return <div key={product.id}>
                          {

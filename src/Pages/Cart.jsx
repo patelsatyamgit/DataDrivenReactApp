@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CartItem from "../Components/CartItem";
 import { useNavigate, useParams } from "react-router-dom/dist";
 import Spinner from "../Components/Spinner";
+import { getProducts } from "../Services/apicall";
 
 const Cart = () => {
 
@@ -13,22 +14,22 @@ const Cart = () => {
   const {id}=useParams();
   const getProduct=async()=>{
     setLoading(true);
-    await fetch(`https://dummyjson.com/carts?limit=150`)
-    .then(res => res.json())
-    .then((json) => {
-             const newdata=json.carts;
-             for(var item of newdata)
-             {
-                console.log("fdfdsf",item)
-                if(item.userId==id){
-                      setProducts(item.products);
-                      setTotal(item.total);
-                      setTotleAmount(item.discountedTotal)
-                }
-             }
-             
-    });
+            try {
+              const newdata=await getProducts();
+              for(var item of newdata)
+              {
+                 console.log("fdfdsf",item)
+                 if(item.userId==id){
+                       setProducts(item.products);
+                       setTotal(item.total);
+                       setTotleAmount(item.discountedTotal)
+                 }
+              }
+            } catch (error) {
+                 console.log(error);
+            }
     setLoading(false);
+
   }
   useEffect(()=>{
       getProduct();
